@@ -91,29 +91,26 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
     "/toyota_ae86_black_limited_kouki.glb",
     "/draco-gltf"
   ) as GLTFResult;
-  const wheel1 = useRef<THREE.Group>(null);
-  const wheel2 = useRef<THREE.Group>(null);
-  const wheel3 = useRef<THREE.Group>(null);
-  const wheel4 = useRef<THREE.Group>(null);
+  const wheel1 = useRef<THREE.Group>(null!);
+  const wheel2 = useRef<THREE.Group>(null!);
+  const wheel3 = useRef<THREE.Group>(null!);
+  const wheel4 = useRef<THREE.Group>(null!);
   useLayoutEffect(() => {
-    setTimeout(() => {
-      const tl = gsap.timeline();
-      tl.to(
-        [
-          wheel1.current!.rotation,
-          wheel2.current!.rotation,
-          wheel3.current!.rotation,
-          wheel4.current!.rotation,
-        ],
-
-        {
-          x: Math.PI * 2,
-          duration: 2,
-          ease: "none",
-          repeat: -1,
-        }
-      );
-    }, 1000);
+    const tl = gsap.timeline();
+    tl.to(
+      [
+        wheel1.current!.rotation,
+        wheel2.current!.rotation,
+        wheel3.current!.rotation,
+        wheel4.current!.rotation,
+      ],
+      {
+        x: Math.PI * 2,
+        duration: 2,
+        ease: "none",
+        repeat: -1,
+      }
+    );
   });
   return (
     <group {...props} dispose={null}>
