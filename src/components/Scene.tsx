@@ -1,35 +1,50 @@
 import {
-  ContactShadows,
+  CameraShake,
   Environment,
   OrbitControls,
-  SoftShadows,
   Stage,
   Stats,
 } from "@react-three/drei";
-import { Canvas} from "@react-three/fiber";
-import { Lightformers } from "./Background";
+import { Canvas } from "@react-three/fiber";
 import { Model } from "./Toyota";
 import { Light } from "./Light";
-import { Bloom, DepthOfField, EffectComposer, Noise, Vignette } from "@react-three/postprocessing";
-
+import {
+  Bloom,
+  ChromaticAberration,
+  DepthOfField,
+  EffectComposer,
+  Noise,
+  SSAO,
+  Vignette,
+} from "@react-three/postprocessing";
+import { Ground } from "./Ground";
 export const Scene = () => {
   return (
-    <div className=" w-full h-screen bg-zinc-900">
-      <Canvas shadows>
-        <EffectComposer>
-        
-          <Bloom luminanceThreshold={0.9} luminanceSmoothing={0.1}  />
-          
-        </EffectComposer>
+    <div className=" w-full h-screen ">
+      <Canvas
+        shadows="soft"
+        gl={{ logarithmicDepthBuffer: true, antialias: false }}
+      >
+       
+        <color args={[0, 0, 0]} attach="background" />
         <Stats />
-        <Light />
-        <Stage intensity={0.5} shadows='contact'>
+        <Stage intensity={0.1} preset="soft" shadows="contact">
           <Model scale={0.01} />
         </Stage>
-
-        <Environment background preset="city" blur={0.8} />
-
-        <OrbitControls />
+        <Ground />
+        <Environment frames={Infinity}  resolution={512}>
+          <Light />
+        </Environment>
+        <Light />
+        <CameraShake
+          maxYaw={0.1} // Max amount camera can yaw in either direction
+          maxPitch={0.1} // Max amount camera can pitch in either direction
+          maxRoll={0.1} // Max amount camera can roll in either direction
+          yawFrequency={0.1} // Frequency of the the yaw rotation
+          pitchFrequency={0.1} // Frequency of the pitch rotation
+          rollFrequency={0.1} // Frequency of the roll rotation
+        />
+        <OrbitControls makeDefault />
       </Canvas>
     </div>
   );

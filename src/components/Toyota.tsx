@@ -7,10 +7,10 @@ title: Toyota AE86 Black Limited Kouki
 */
 
 import * as THREE from "three";
-import { gsap } from "gsap";
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
+import { useFrame } from "@react-three/fiber";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -87,31 +87,19 @@ type GLTFResult = GLTF & {
 };
 
 export function Model(props: JSX.IntrinsicElements["group"]) {
-  const { nodes, materials } = useGLTF(
-    "/toyota_ae86_black_limited_kouki.glb",
-    "/draco-gltf"
-  ) as GLTFResult;
+  const { nodes, materials } = useGLTF("/toyota-transformed.glb") as GLTFResult;
   const wheel1 = useRef<THREE.Group>(null!);
   const wheel2 = useRef<THREE.Group>(null!);
   const wheel3 = useRef<THREE.Group>(null!);
   const wheel4 = useRef<THREE.Group>(null!);
-  useLayoutEffect(() => {
-    const tl = gsap.timeline();
-    tl.to(
-      [
-        wheel1.current!.rotation,
-        wheel2.current!.rotation,
-        wheel3.current!.rotation,
-        wheel4.current!.rotation,
-      ],
-      {
-        x: Math.PI * 2,
-        duration: 2,
-        ease: "none",
-        repeat: -1,
-      }
-    );
-  });
+  useFrame(({ clock }) => {
+    const a = clock.getElapsedTime() * 2;
+    wheel1.current.rotation.x = a;
+    wheel2.current.rotation.x = a;
+    wheel3.current.rotation.x = a;
+    wheel4.current.rotation.x = a;
+  })
+  
   return (
     <group {...props} dispose={null}>
       <group
@@ -432,4 +420,4 @@ export function Model(props: JSX.IntrinsicElements["group"]) {
   );
 }
 
-useGLTF.preload("/toyota_ae86_black_limited_kouki.glb");
+useGLTF.preload("/toyota-transformed.glb");
