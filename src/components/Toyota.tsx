@@ -86,22 +86,22 @@ type GLTFResult = GLTF & {
   };
 };
 
-export const Model = (props: JSX.IntrinsicElements["group"]) => {
+export const Toyota = (props: JSX.IntrinsicElements["group"]) => {
   const { nodes, materials } = useGLTF("/toyota-transformed.glb") as GLTFResult;
   const wheel1 = useRef<THREE.Group>(null!);
   const wheel2 = useRef<THREE.Group>(null!);
   const wheel3 = useRef<THREE.Group>(null!);
   const wheel4 = useRef<THREE.Group>(null!);
   useFrame(({ clock }) => {
-    const a = clock.getElapsedTime() * 3;
-    wheel1.current.rotation.x = a;
-    wheel2.current.rotation.x = a;
-    wheel3.current.rotation.x = a;
-    wheel4.current.rotation.x = a;
-  })
-  
+    const elapsed = clock.getElapsedTime() * 3;
+    wheel1.current.rotation.x = elapsed;
+    wheel2.current.rotation.x = elapsed;
+    wheel3.current.rotation.x = elapsed;
+    wheel4.current.rotation.x = elapsed;
+  });
+
   return (
-    <group {...props} dispose={null}>
+    <group {...props} scale={0.01} dispose={null}>
       <group
         position={[48.35, 77.51, 198.06]}
         rotation={[-2.7, 0, 0]}
@@ -418,6 +418,6 @@ export const Model = (props: JSX.IntrinsicElements["group"]) => {
       </group>
     </group>
   );
-}
+};
 
 useGLTF.preload("/toyota-transformed.glb");
