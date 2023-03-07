@@ -28,7 +28,7 @@ export const Light = () => {
           <torusGeometry args={[3.35, 0.05, 16, 100]} />
           <meshStandardMaterial
             color={[0, 0, 0]}
-            emissive={i % 2 ? [3, 0, 0] : [0, 0, 3]}
+            emissive={i % 2 ? [3, 0, 0] : [0, 0, 5]}
           />
         </mesh>
       ))}
