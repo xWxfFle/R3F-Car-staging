@@ -1,15 +1,13 @@
-import { Suspense } from "react";
-import { Overlay } from "./components/Overlay";
-import { Scene } from "./components/Scene";
+import { Suspense } from 'react'
+import { Loading } from './components/loading'
+import { Stage } from './components/stage'
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <Suspense fallback={<Overlay />}>
-        <Scene />
+    <div className='bg-violet-950 overflow-hidden'>
+      <Suspense fallback={<Loading />}>
+        <Stage />
       </Suspense>
     </div>
-  );
+  )
 }
-
-export default App;

@@ -1,11 +1,11 @@
-import { Environment, OrbitControls, Stage } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
-import { Toyota } from "./Toyota";
-import { Light } from "./Light";
-import { Bloom, EffectComposer } from "@react-three/postprocessing";
-export const Scene = () => {
+import { Environment, OrbitControls, Stage as Staging } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
+import { Toyota } from '../models/toyota'
+import { Light } from '../models/light'
+import { Bloom, EffectComposer } from '@react-three/postprocessing'
+export const Stage = () => {
   return (
-    <div className=" w-full h-screen bg-zinc-900">
+    <div className='w-screen h-screen'>
       <Canvas
         gl={{ logarithmicDepthBuffer: true, antialias: false }}
         camera={{ position: [4, 0, -12], fov: 40 }}
@@ -18,9 +18,9 @@ export const Scene = () => {
             luminanceSmoothing={0.025}
           />
         </EffectComposer>
-        <Stage intensity={0} shadows="contact">
+        <Staging intensity={0} shadows='contact'>
           <Toyota />
-        </Stage>
+        </Staging>
         <spotLight
           color={[3, 0, 0]}
           angle={0.6}
@@ -40,5 +40,5 @@ export const Scene = () => {
         <OrbitControls enablePan={false} maxPolarAngle={1.55} />
       </Canvas>
     </div>
-  );
-};
+  )
+}
